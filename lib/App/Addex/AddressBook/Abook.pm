@@ -60,7 +60,7 @@ sub new {
 sub _entrify {
   my ($self, $person) = @_;
 
-  return unless my @emails = split /\s*,\s*/, $person->{email};
+  return unless my @emails = split /\s*,\s*/, ($person->{email}||'');
 
   my %field;
   $field{ $_ } = $person->{ $self->{"$_\_field"} } for qw(sig folder);
