@@ -3,12 +3,14 @@ use warnings;
 
 use inc::Module::Install;
 
-name          ('App-Addex-AddressBook-Apple');
+name          ('App-Addex-AddressBook-Abook');
 author        ('Ricardo Signes <rjbs@cpan.org>');
 license       ('perl');
-version_from  ('lib/App/Addex/AddressBook/Apple.pm');
+version_from  ('lib/App/Addex/AddressBook/Abook.pm');
 
-requires('App::Addex'                => 0.002); # the AddressBook module
-requires('Mac::Glue'                 => 0.000);  # minimum unknown
+requires('App::Addex'     => 0.003); # the AddressBook module, $arg
+requires('Config::Tiny'   => 0    ); # already required by Addex
+requires('File::HomeDir'  => 0    ); # minimum unknown
+requires('File::Spec'     => 0    ); # minimum unknown
 
 WriteAll();

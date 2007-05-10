@@ -1,8 +1,4 @@
-Revision history for App-Addex-AddressBook-Appl
+Revision history for App-Addex-AddressBook-Abook
 
-0.003     2007-05-07
-          documentation fix
-
-0.002     2007-04-07
-          severed from App-Addex
-          now returns App::Addex::Entry objects
+0.001     2007-05-09
+          first release
