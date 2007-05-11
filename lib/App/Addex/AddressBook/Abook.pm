@@ -5,6 +5,8 @@ use warnings;
 package App::Addex::AddressBook::Abook;
 use base qw(App::Addex::AddressBook);
 
+use App::Addex::Entry::EmailAddress;
+
 use Config::Tiny; # it's probably already loaded, but... -- rjbs, 2007-05-09
 use File::HomeDir;
 use File::Spec;
@@ -15,13 +17,13 @@ App::Addex::AddressBook::Abook - use the "abook" program as the addex source
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
   $Id$
 
 =cut
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 =head1 SYNOPSIS
 
@@ -60,7 +62,9 @@ sub new {
 sub _entrify {
   my ($self, $person) = @_;
 
-  return unless my @emails = split /\s*,\s*/, ($person->{email}||'');
+  return unless my @emails =
+    map { App::Addex::Entry::EmailAddress->new($_) }
+    split /\s*,\s*/, ($person->{email}||'');
 
   my %field;
   $field{ $_ } = $person->{ $self->{"$_\_field"} } for qw(sig folder);
