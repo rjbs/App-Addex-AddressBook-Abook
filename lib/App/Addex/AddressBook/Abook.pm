@@ -7,7 +7,7 @@ use base qw(App::Addex::AddressBook);
 
 use App::Addex::Entry::EmailAddress;
 
-use Config::Tiny; # it's probably already loaded, but... -- rjbs, 2007-05-09
+use Config::INI::Reader; # probably already loaded, but... -- rjbs, 2007-05-09
 use File::HomeDir;
 use File::Spec;
 
@@ -17,13 +17,13 @@ App::Addex::AddressBook::Abook - use the "abook" program as the addex source
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
   $Id$
 
 =cut
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 =head1 SYNOPSIS
 
@@ -51,8 +51,8 @@ sub new {
     'addressbook',
   );
 
-  Carp::croak "couldn't read abook address book file" unless
-    $self->{config} = Config::Tiny->read($arg->{filename});
+  eval { $self->{config} = Config::INI::Reader->read_file($arg->{filename}); };
+  Carp::croak "couldn't read abook address book file: $@" if $@;
 
   $self->{$_} = $arg->{$_} for qw(sig_field folder_field);
 
