@@ -7,9 +7,24 @@ use base qw(App::Addex::AddressBook);
 
 use App::Addex::Entry::EmailAddress;
 
-use Config::INI::Reader; # probably already loaded, but... -- rjbs, 2007-05-09
 use File::HomeDir;
 use File::Spec;
+
+{
+  package App::Addex::AddressBook::Abook::INI::Reader;
+  use Config::INI::Reader; # probably already loaded, but... -- rjbs, 2007-05-09
+  BEGIN { our @ISA = 'Config::INI::Reader' }
+
+  sub can_ignore {
+    my ($self, $line) = @_;
+    return $line =~ /\A\s*(?:[;#]|$)/ ? 1 : 0;
+  }
+
+  sub preprocess_line {
+    my ($self, $line) = @_;
+    ${$line} =~ s/\s+[;#].*$//g;
+  }
+}
 
 =head1 NAME
 
@@ -17,13 +32,11 @@ App::Addex::AddressBook::Abook - use the "abook" program as the addex source
 
 =head1 VERSION
 
-version 0.003
-
-  $Id$
+version 0.004
 
 =cut
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 =head1 SYNOPSIS
 
@@ -51,7 +64,10 @@ sub new {
     'addressbook',
   );
 
-  eval { $self->{config} = Config::INI::Reader->read_file($arg->{filename}); };
+  eval {
+    $self->{config} = App::Addex::AddressBook::Abook::INI::Reader
+                    ->read_file($arg->{filename});
+  };
   Carp::croak "couldn't read abook address book file: $@" if $@;
 
   $self->{$_} = $arg->{$_} for qw(sig_field folder_field);

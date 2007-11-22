@@ -1,5 +1,9 @@
 Revision history for App-Addex-AddressBook-Abook
 
+0.004     2007-11-19
+          refresh Module::Install
+          update required version of Config::INI::Reader
+
 0.003     2007-05-11
           use App::Addex::Entry::EmailAddress
 
