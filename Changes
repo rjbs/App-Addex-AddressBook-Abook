@@ -2,6 +2,9 @@ Revision history for App-Addex-AddressBook-Abook
 
 {{$NEXT}}
 
+0.008     2013-11-19 23:14:17 America/New_York
+          fix repository links
+
 0.007     2013-06-19 19:10:14 America/New_York
           repackage, update bugtracker, etc.
 
