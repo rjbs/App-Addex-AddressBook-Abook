@@ -1,6 +1,8 @@
 Revision history for App-Addex-AddressBook-Abook
 
 {{$NEXT}}
+
+0.009     2021-06-19 13:36:01-04:00 America/New_York
         - update author info
         - add perl-support section to docs
 
